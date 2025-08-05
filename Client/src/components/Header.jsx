@@ -13,12 +13,12 @@ const Header = () => {
           className="w-6 h-6 rounded-sm"
         />
         <Link to='/'>
-        <h1 className="font-bold">Auth App</h1>
+        <h1 className="font-bold text-black">Auth App</h1>
         </Link>
         
-      <div className="flex-grow flex justify-end">
+      <div className="flex-grow flex justify-end ">
 
-        <ul className='font-semibold flex space-x-4'>
+        <ul className='font-semibold flex space-x-4 text-black'>
           <Link to='/'><li>Home</li></Link>
           <Link to='about'><li>About</li></Link>
           <Link to='signup'><li>Sign Up</li></Link>
