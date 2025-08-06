@@ -3,6 +3,7 @@ import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import userRoutes from './routes/userRoutes.js'
 import authRoutes from './routes/authRoutes.js';
+import e from 'express';
 
 // Load environment variables from .env file
 dotenv.config();
@@ -33,3 +34,13 @@ app.listen(PORT, () => {
 
 app.use('/api/users', userRoutes);
 app.use('/api/auth', authRoutes);
+
+
+app.use((err, req, res, next) => {
+  const statusCode = res.statusCode || 500;
+  const message = err.message || 'Internal Server Error';
+  return res.status(statusCode).json({ 
+    success: false,
+    message,
+    statusCode, })
+});
