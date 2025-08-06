@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 const Header = () => {
   return (
-    <div className="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white p-4 shadow-lg">
+    <div className="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white p-3 shadow-lg">
       <div className="flex space-x-1">
         
         <img

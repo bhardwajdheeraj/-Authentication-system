@@ -1,7 +1,8 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
-import userRoutes from './routes/userRoutes.js';
+import userRoutes from './routes/userRoutes.js'
+import authRoutes from './routes/authRoutes.js';
 
 // Load environment variables from .env file
 dotenv.config();
@@ -31,3 +32,4 @@ app.listen(PORT, () => {
 });
 
 app.use('/api/users', userRoutes);
+app.use('/api/auth', authRoutes);
