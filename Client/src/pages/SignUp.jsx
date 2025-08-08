@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+import { Link,useNavigate} from 'react-router-dom'
 import { FaUser, FaEnvelope, FaLock } from 'react-icons/fa'
 import { set } from 'mongoose';
 import React, { useState } from 'react'
@@ -7,6 +7,7 @@ const SignUp = () => {
   const [fromData, setFromData] = useState({});
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
   const handleChange = (e) => {
     setFromData({
       ...fromData,[e.target.id]: e.target.value
@@ -31,11 +32,8 @@ const SignUp = () => {
       setError(true);
       return;
     }
-   
-    
-}
-      
-    catch (error) {
+     navigate('/signin'); // Redirect to sign-in page on successful sign-up
+    } catch (error) {
       setLoading(false);
       setError(true);
     }
