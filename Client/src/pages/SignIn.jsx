@@ -1,12 +1,15 @@
-import { Link ,useNavigate} from 'react-router-dom';
-import { FaEnvelope, FaLock } from 'react-icons/fa';
 import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { FaEnvelope, FaLock } from 'react-icons/fa';
+import { useSelector, useDispatch } from 'react-redux';
+import { signInStart, signInSuccess, signInFailure } from '../redux/user/userSlice';
 
 const SignIn = () => {
   const [formData, setFormData] = useState({});
-  const [error, setError] = useState(false);
-  const [loading, setLoading] = useState(false);
- const navigate = useNavigate();
+  const { loading, error } = useSelector((state) => state.user);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   const handleChange = (e) => {
     setFormData({
       ...formData,
@@ -17,8 +20,7 @@ const SignIn = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      setLoading(true);
-      setError(false);
+      dispatch(signInStart());
       const res = await fetch('/api/auth/signin', {
         method: 'POST',
         headers: {
@@ -28,17 +30,16 @@ const SignIn = () => {
       });
 
       const data = await res.json();
-      setLoading(false);
 
-      if (data.success === false) {
-        setError(true);
+      if (!res.ok) {
+        dispatch(signInFailure(data.message || 'Failed to sign in'));
         return;
       }
-    navigate('/'); // Redirect to home page on successful sign-in
-      // Handle success (e.g., navigate, store token, etc.)
-    } catch (error) {
-      setLoading(false);
-      setError(true);
+
+      dispatch(signInSuccess(data));
+      navigate('/'); // Redirect on successful login
+    } catch (err) {
+      dispatch(signInFailure(err.message || 'Something went wrong'));
     }
   };
 
@@ -54,7 +55,6 @@ const SignIn = () => {
             <input
               className="bg-transparent outline-none text-white placeholder-white w-full"
               type="email"
-              name="email"
               id="email"
               placeholder="Email ID"
               required
@@ -68,7 +68,6 @@ const SignIn = () => {
             <input
               className="bg-transparent outline-none text-white placeholder-white w-full"
               type="password"
-              name="password"
               id="password"
               placeholder="Password"
               required
@@ -76,7 +75,9 @@ const SignIn = () => {
             />
           </div>
 
-          <p className="mb-4 text-indigo-500 cursor-pointer text-right">Forgot password?</p>
+          <p className="mb-4 text-indigo-500 cursor-pointer text-right">
+            Forgot password?
+          </p>
 
           <button
             disabled={loading}
@@ -94,7 +95,9 @@ const SignIn = () => {
           </Link>
         </div>
 
-        <p className="text-red-500 mt-5">{error && 'Something went wrong!'}</p>
+        {error && (
+          <p className="text-red-500 mt-5 text-center">{error}</p>
+        )}
       </div>
     </div>
   );
