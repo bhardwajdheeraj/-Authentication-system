@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { FaEnvelope, FaLock } from 'react-icons/fa';
 import { useSelector, useDispatch } from 'react-redux';
 import { signInStart, signInSuccess, signInFailure } from '../redux/user/userSlice';
+import OAuth from '../components/OAuth';
 
 const SignIn = () => {
   const [formData, setFormData] = useState({});
@@ -86,6 +87,7 @@ const SignIn = () => {
           >
             {loading ? 'Loading...' : 'Sign In'}
           </button>
+          <OAuth />
         </form>
 
         <div className="mt-6 text-center text-white">

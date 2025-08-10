@@ -2,6 +2,7 @@ import { Link,useNavigate} from 'react-router-dom'
 import { FaUser, FaEnvelope, FaLock } from 'react-icons/fa'
 import { set } from 'mongoose';
 import React, { useState } from 'react'
+import OAuth from '../components/OAuth';
 
 const SignUp = () => {
   const [fromData, setFromData] = useState({});
@@ -100,6 +101,7 @@ const SignUp = () => {
           >
             {loading ?'Loading...':'Create Account'}
           </button>
+          <OAuth />
         </form>
         <div className='mt-6 text-center text-white'>
           <p>Have an account?</p>

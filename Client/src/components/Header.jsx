@@ -21,7 +21,7 @@ const Header = () => {
         <ul className='font-semibold flex space-x-4 text-black'>
           <Link to='/'><li>Home</li></Link>
           <Link to='about'><li>About</li></Link>
-          <Link to='signup'><li>Sign Up</li></Link>
+          {/* <Link to='signup'><li>Sign Up</li></Link> */}
           <Link to='signin'><li>Sign In</li></Link>
             
             
